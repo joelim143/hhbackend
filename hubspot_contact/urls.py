@@ -51,7 +51,7 @@ urlpatterns = [
     path('contacts/<str:email>/verify_password/', verify_password, name='verify_password'),
 
     # Update Approval Status (using contact_id)
-    path('contacts/approval/<int:contact_id>/', update_approval_status, name='update-approval-status'),
+    path('hubspot_contacts/<str:contact_id>/approval_status/', update_approval_status, name='update-approval-status'),
 
     # CSV upload/download
     path('contacts/csv/upload/', CSVUploadView.as_view(), name='csv-upload'),

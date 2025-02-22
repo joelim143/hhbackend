@@ -151,6 +151,7 @@ class ContactEmailView(APIView):
 class ContactUpdateView(APIView):
     def patch(self, request, contact_id):
         # print(request)
+        print(f"views.py L154 Updating HubSpot contact ID: {contact_id}")
         contact = get_object_or_404(Contact, contact_id=contact_id)
         id = request.data.get('contact_id')
 
