@@ -1,0 +1,36 @@
+{% extends 'hubspot_contact/base.html' %}
+
+{% block content %}
+  <h2>Contact Updated Successfully</h2>
+
+  {% if contact %}
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Skills</th>
+            <th scope="col">Availability</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.first_name }}</td>
+            <td>{{ contact.last_name }}</td>
+            <td>{{ contact.phone }}</td>
+            <td>{{ contact.skills }}</td>
+            <td>{{ contact.availability }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>No contact data available.</p>
+  {% endif %}
+{% endblock %}

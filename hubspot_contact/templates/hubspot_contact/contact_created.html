@@ -1,0 +1,36 @@
+{% extends 'hubspot_contact/base.html' %}
+
+{% block content %}
+  <h2>Contact Created Successfully</h2>
+
+  {% if contact %}
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Skills</th>
+            <th scope="col">Availability</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>  <!-- You can replace this with contact id if necessary -->
+            <td>{{ contact.properties.email }}</td>
+            <td>{{ contact.properties.firstname }}</td>
+            <td>{{ contact.properties.lastname }}</td>
+            <td>{{ contact.properties.phone }}</td>
+            <td>{{ contact.properties.skills }}</td>
+            <td>{{ contact.properties.availability }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>No contact data available.</p>
+  {% endif %}
+{% endblock %}

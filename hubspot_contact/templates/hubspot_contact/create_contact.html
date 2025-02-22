@@ -1,0 +1,27 @@
+{% extends 'hubspot_contact/base.html' %}
+
+{% block content %}
+    <h1>Create Contact</h1>
+    <form action="{% url 'hubspot_contact:create_contact' %}" method="post">
+        {% csrf_token %}
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br>
+
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name" required><br>
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" name="last_name" required><br>
+
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone"><br>
+
+        <label for="skills">Skills:</label>
+        <input type="text" name="skills"><br>
+
+        <label for="availability">Availability:</label>
+        <input type="text" name="availability"><br>
+        
+        <button type="submit" class="btn btn-primary">Create Contact</button>
+    </form>
+{% endblock %}

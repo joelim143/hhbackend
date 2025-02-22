@@ -1,0 +1,157 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block name %}HubSpot Contacts{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .container {
+        flex: 1; /* Ensures the content takes up remaining space */
+      }
+
+      .nav-item .nav-link {
+        color: white !important; /* Changes the button text color to white */
+      }
+
+      .nav-item .nav-link:hover {
+        background-color: #6a0c3b;
+        color: white;
+      }
+
+      .crud-section {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      .crud-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        width: 220px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .crud-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      .alert-container {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Branding Section -->
+    <header class="container-fluid bg-light p-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="branding d-flex align-items-center">
+          <a class="navbar-brand" href="/"
+            ><img src="{% static 'images/ContactLibrary logo.png' %}" width="100px" alt="Logo" class="logo"
+          /></a>
+          <div class="branding-message">
+            <p class="lead">Where Personal Information is Secured in Silent...</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar navbar-expand-lg" style="background-color: #8a194f;">
+      <div class="container px-4 px-lg-5">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-*-toggle="collapse"
+          data-*-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'hubspot_contact:list_contacts' %}">Contact List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'hubspot_contact:create_contact' %}">Create Contact</a>
+            </li>
+            <li class="nav-item">
+              <form action="{% url 'hubspot_contact:get_contact' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="text" name="email" class="form-control mr-2" placeholder="Enter email" required>
+                <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none; background: none; color: white;">
+                  Search Contact (by Email)
+                </button>
+              </form>
+            </li>
+            <!-- Download CSV Link -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'hubspot_contact:download_csv' %}">Download Contacts as CSV</a>
+            </li>
+          <!--{% if contact.id %}
+            <li class="nav-item">
+              <form method="POST" action="{% url 'hubspot_contact:delete_contact' contact.id %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this contact?');">
+                  Delete Contact
+                </button>
+              </form>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <span class="text-muted">Contact ID not available</span>
+            </li>
+          {% endif %} -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+      <!-- {% if messages %}
+        <div class="alert-container">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      -->
+
+      {% block content %}
+      {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center p-3 mt-5">
+      <p>© 2025 HubSpot Contact Manager. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap and JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

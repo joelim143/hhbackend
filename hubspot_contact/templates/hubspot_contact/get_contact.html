@@ -1,0 +1,59 @@
+{% extends 'hubspot_contact/base.html' %}
+
+{% block content %}
+  <h2>Search Contact by Email</h2>
+  
+  <!-- Display any error messages if provided -->
+  {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+
+  <!-- Search Form -->
+  <form action="{% url 'hubspot_contact:get_contact' %}" method="post">
+    {% csrf_token %}
+    <label for="email">Email:</label>
+    <input type="email" name="email" placeholder="Enter email" required class="form-control">
+    <button type="submit" class="btn btn-primary mt-2">Search</button>
+  </form>
+  
+  <!-- Display Contact Details if found -->
+  {% if contact %}
+    <h3 class="mt-4">Contact Details:</h3>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Email</strong></td>
+          <td>{{ contact.email }}</td>
+        </tr>
+        <tr>
+          <td><strong>First Name</strong></td>
+          <td>{{ contact.first_name }}</td>
+        </tr>
+        <tr>
+          <td><strong>Last Name</strong></td>
+          <td>{{ contact.last_name }}</td>
+        </tr>
+        <tr>
+          <td><strong>Phone</strong></td>
+          <td>{{ contact.phone }}</td>
+        </tr>
+        <tr>
+          <td><strong>Skills</strong></td>
+          <td>{{ contact.skills }}</td>
+        </tr>
+        <tr>
+          <td><strong>Availability</strong></td>
+          <td>{{ contact.availability }}</td>
+        </tr>
+      </tbody>
+    </table>
+  {% else %}
+    <p class="mt-4">No contact found with this email. Please try again with a valid email address.</p>
+  {% endif %}
+{% endblock %}
